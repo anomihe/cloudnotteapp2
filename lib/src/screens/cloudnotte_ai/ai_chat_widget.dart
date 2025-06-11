@@ -1,8 +1,8 @@
 import 'package:cloudnottapp2/src/config/config.dart';
 import 'package:cloudnottapp2/src/data/local/mockdata/user_chat_mock_data.dart';
 import 'package:cloudnottapp2/src/data/models/user_chat_model.dart';
-import 'package:cloudnottapp2/src/screens/cloudnottapp2_ai/ai_chatting_screen.dart';
-import 'package:cloudnottapp2/src/screens/cloudnottapp2_ai/ai_profile_screen.dart';
+// import 'package:cloudnottapp2/src/screens/cloudnottapp2_ai/ai_chatting_screen.dart';
+// import 'package:cloudnottapp2/src/screens/cloudnottapp2_ai/ai_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -22,15 +22,13 @@ class AiChatWidget extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
-                context.push(
-                  AiProfileScreen.routeName,
-                );
+                // context.push(
+                //   AiProfileScreen.routeName,
+                // );
               },
               child: Stack(
                 children: [
-                  CircleAvatar(
-                    child: Image.asset(userChatModel.image),
-                  ),
+                  CircleAvatar(child: Image.asset(userChatModel.image)),
                   Positioned(
                     bottom: 0,
                     right: 0,
@@ -42,12 +40,10 @@ class AiChatWidget extends StatelessWidget {
                             ? Colors.green
                             : Colors.yellow,
                         borderRadius: BorderRadius.circular(100),
-                        border: Border.all(
-                          color: Colors.white,
-                        ),
+                        border: Border.all(color: Colors.white),
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -55,10 +51,10 @@ class AiChatWidget extends StatelessWidget {
             Expanded(
               child: GestureDetector(
                 onTap: () {
-                  context.push(
-                    AiChattingScreen.routeName,
-                    extra: aiChatDisplay,
-                  );
+                  // context.push(
+                  //   AiChattingScreen.routeName,
+                  //   extra: aiChatDisplay,
+                  // );
                 },
                 child: Material(
                   child: Row(
@@ -73,19 +69,16 @@ class AiChatWidget extends StatelessWidget {
                                 style: setTextTheme(),
                                 overflow: TextOverflow.ellipsis,
                               ),
-                              SizedBox(
-                                width: 5,
-                              ),
+                              SizedBox(width: 5),
                               if (userChatModel.isVerified == true)
                                 SvgPicture.asset(
-                                    'assets/icons/verified_icon.svg')
+                                  'assets/icons/verified_icon.svg',
+                                ),
                             ],
                           ),
                           Text(
                             userChatModel.text,
-                            style: setTextTheme(
-                              fontSize: 12.sp,
-                            ),
+                            style: setTextTheme(fontSize: 12.sp),
                             overflow: TextOverflow.ellipsis,
                           ),
                         ],
@@ -121,7 +114,7 @@ class AiChatWidget extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                SizedBox(width: 7.w)
+                                SizedBox(width: 7.w),
                               ],
                             ),
                         ],

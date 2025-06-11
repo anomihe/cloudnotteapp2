@@ -13,7 +13,7 @@ import '../../screens/onboarding_screens/onboarding_screens.dart/signin.dart';
 
 class AuthProvider extends ChangeNotifier {
   final AuthRepository authRepository;
-  final GoogleService googleService = GoogleService();
+  // final GoogleService googleService = GoogleService();
 
   AuthProvider({required this.authRepository});
 
@@ -56,44 +56,46 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> googleSignIn() async {
-    try {
-      reset();
-      setLoadingStateTwo(true);
-      final String? token = await googleService.signInWithGoogle();
-      log("TOKEN: $token");
-      final platForm = Platform.isAndroid ? "android" : "ios";
-      Result<dynamic> result =
-          await authRepository.googleSignin(token ?? "", platForm);
-      if (result.response is ResponseError) {
-        errorResponse = result.response as ResponseError;
-        log("ERROR: ${errorResponse?.errors.toString()}");
-        setError(true);
-        setLoadingStateTwo(false);
-        notifyListeners();
-        return;
-      }
-      successResponse = result.response as ResponseSuccess;
-      loginResponse = successResponse!.data as LoginResponseModel;
-      localStore.put("token", loginResponse!.token);
-      setSuccess(true);
-      setLoadingStateTwo(false);
-      notifyListeners();
-    } catch (error) {
-      log("ERROR: ${error.toString()}");
-      errorResponse = ResponseError(message: error.toString());
-      setError(true);
-      setLoadingStateTwo(false);
-      notifyListeners();
-    }
-  }
+  // Future<void> googleSignIn() async {
+  //   try {
+  //     reset();
+  //     setLoadingStateTwo(true);
+  //     final String? token = await googleService.signInWithGoogle();
+  //     log("TOKEN: $token");
+  //     final platForm = Platform.isAndroid ? "android" : "ios";
+  //     Result<dynamic> result =
+  //         await authRepository.googleSignin(token ?? "", platForm);
+  //     if (result.response is ResponseError) {
+  //       errorResponse = result.response as ResponseError;
+  //       log("ERROR: ${errorResponse?.errors.toString()}");
+  //       setError(true);
+  //       setLoadingStateTwo(false);
+  //       notifyListeners();
+  //       return;
+  //     }
+  //     successResponse = result.response as ResponseSuccess;
+  //     loginResponse = successResponse!.data as LoginResponseModel;
+  //     localStore.put("token", loginResponse!.token);
+  //     setSuccess(true);
+  //     setLoadingStateTwo(false);
+  //     notifyListeners();
+  //   } catch (error) {
+  //     log("ERROR: ${error.toString()}");
+  //     errorResponse = ResponseError(message: error.toString());
+  //     setError(true);
+  //     setLoadingStateTwo(false);
+  //     notifyListeners();
+  //   }
+  // }
 
   Future<void> signIn({required String email, required String password}) async {
     try {
       reset();
       setLoading(true);
-      Result<dynamic> result =
-          await authRepository.signIn(email: email, password: password);
+      Result<dynamic> result = await authRepository.signIn(
+        email: email,
+        password: password,
+      );
       if (result.response is ResponseError) {
         errorResponse = result.response as ResponseError;
         log("ERROR: ${errorResponse?.errors.toString()}");
@@ -120,9 +122,7 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  Future<bool> changePassword({
-    required String password,
-  }) async {
+  Future<bool> changePassword({required String password}) async {
     try {
       reset();
       setLoading(true);
@@ -132,7 +132,9 @@ class AuthProvider extends ChangeNotifier {
       // }
       log('my tokenssss  $verifyToken');
       Result<dynamic> result = await authRepository.changePassword(
-          token: verifyToken, password: password);
+        token: verifyToken,
+        password: password,
+      );
       if (result.response is ResponseError) {
         errorResponse = result.response as ResponseError;
         print("ERROR: ${errorResponse?.errors.toString()}");
@@ -172,8 +174,10 @@ class AuthProvider extends ChangeNotifier {
         token = verifyToken;
       }
       log('my tokenssss $token $verifyToken');
-      Result<dynamic> result =
-          await authRepository.changePassword(token: token, password: password);
+      Result<dynamic> result = await authRepository.changePassword(
+        token: token,
+        password: password,
+      );
       if (result.response is ResponseError) {
         errorResponse = result.response as ResponseError;
         print("ERROR: ${errorResponse?.errors.toString()}");
@@ -205,8 +209,54 @@ class AuthProvider extends ChangeNotifier {
   }
 
   Future<bool> resetPasswordProvider(String email) async {
-    Result<dynamic> result = await authRepository.resetPassword(
+    Result<dynamic> result = await authRepository.resetPassword(email: email);
+    log("here in provider ${result.response}");
+    try {
+      reset();
+      setLoading(true);
+
+      if (result.response is ResponseError) {
+        errorResponse = result.response as ResponseError;
+        print("ERROR: ${errorResponse?.errors.toString()}");
+        setError(true);
+        setLoading(false);
+        notifyListeners();
+        return false;
+      }
+      successResponse = result.response as ResponseSuccess?;
+      var data = successResponse!.data as bool;
+
+      if (successResponse?.data == null) {
+        log("Error: successResponse.data is null");
+        return false; // Handle null case properly
+      }
+      log("here in provider ${result.response}");
+      if (data == true) {
+        setSuccess(true);
+        setLoading(false);
+        notifyListeners();
+        return true;
+      }
+      return false;
+    } catch (e) {
+      log("here in provider ${e}");
+      setError(true);
+      setLoading(false);
+      notifyListeners();
+      return false;
+    } finally {
+      setLoading(false);
+      notifyListeners();
+    }
+  }
+
+  Future<bool> resendPasswordProvider({
+    required String email,
+    required String activity,
+  }) async {
+    Result<dynamic> result = await authRepository.resendOtp(
       email: email,
+      activity: activity,
     );
     log("here in provider ${result.response}");
     try {
@@ -248,54 +298,11 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  Future<bool> resendPasswordProvider(
-      {required String email, required String activity}) async {
-    Result<dynamic> result =
-        await authRepository.resendOtp(email: email, activity: activity);
-    log("here in provider ${result.response}");
-    try {
-      reset();
-      setLoading(true);
-
-      if (result.response is ResponseError) {
-        errorResponse = result.response as ResponseError;
-        print("ERROR: ${errorResponse?.errors.toString()}");
-        setError(true);
-        setLoading(false);
-        notifyListeners();
-        return false;
-      }
-      successResponse = result.response as ResponseSuccess?;
-      var data = successResponse!.data as bool;
-
-      if (successResponse?.data == null) {
-        log("Error: successResponse.data is null");
-        return false; // Handle null case properly
-      }
-      log("here in provider ${result.response}");
-      if (data == true) {
-        setSuccess(true);
-        setLoading(false);
-        notifyListeners();
-        return true;
-      }
-      return false;
-    } catch (e) {
-      log("here in provider ${e}");
-      setError(true);
-      setLoading(false);
-      notifyListeners();
-      return false;
-    } finally {
-      setLoading(false);
-      notifyListeners();
-    }
-  }
-
-  Future<void> verifyOtpPassword(
-      {required String email,
-      required String otp,
-      required String activity}) async {
+  Future<void> verifyOtpPassword({
+    required String email,
+    required String otp,
+    required String activity,
+  }) async {
     try {
       reset();
       setLoading(true);

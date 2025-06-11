@@ -29,14 +29,8 @@ class _SplashScreenState extends State<SplashScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image.asset(
-                "assets/app/cloudnottapp2_logo_two.png",
-                height: 50,
-              ),
-              Image.asset(
-                "assets/app/cloudnottapp2_logo_one.png",
-                height: 50,
-              ),
+              Image.asset("assets/app/cloudnotte_logo_two.png", height: 50),
+              Image.asset("assets/app/cloudnotte_logo_one.png", height: 50),
             ],
           ),
         ),
