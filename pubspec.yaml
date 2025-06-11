@@ -2,7 +2,7 @@ name: cloudnottapp2
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.0+1
+version: 1.0.0+27
 
 environment:
   sdk: ^3.8.1
@@ -35,7 +35,6 @@ dependencies:
   intl_phone_field: ^3.2.0
   pin_code_fields: ^8.0.1
   collection: ^1.18.0
-
 
   # csc_picker: ^0.2.7
   image_picker: ^1.1.2
@@ -65,9 +64,7 @@ dependencies:
   firebase_auth: ^5.5.3
   marquee: ^2.3.0
 
-
   date_time: ^0.12.0
-
 
   skeletonizer: ^2.0.1
   flutter_markdown: ^0.7.6+2
@@ -94,8 +91,6 @@ dependencies:
   flutter_quill: ^11.4.1
   livekit_client: ^2.4.8
   # livekit_client: ^2.3.1+hotfix.1
-
-
 
 dependency_overrides:
   intl: 0.20.2

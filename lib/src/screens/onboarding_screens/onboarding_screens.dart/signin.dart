@@ -49,14 +49,11 @@ class _SignInScreenState extends State<SignInScreen> {
                 // Logo
                 Row(
                   children: [
-                    Image.asset(
-                      scale: 2,
-                      'assets/app/cloudnottapp2_logo_two.png',
-                    ),
+                    Image.asset(scale: 2, 'assets/app/cloudnotte_logo_two.png'),
                     const SizedBox(width: 5),
                     Image.asset(
                       scale: 1.5,
-                      'assets/app/cloudnottapp2_logo_one.png',
+                      'assets/app/cloudnotte_logo_one.png',
                     ),
                   ],
                 ),
@@ -139,15 +136,10 @@ class _SignInScreenState extends State<SignInScreen> {
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 10.h,
-                ),
+                SizedBox(height: 10.h),
                 Row(
                   children: [
-                    Text(
-                      "Don’t have an account? ",
-                      style: setTextTheme(),
-                    ),
+                    Text("Don’t have an account? ", style: setTextTheme()),
                     GestureDetector(
                       onTap: () {
                         context.push(SignUpScreen.routeName);
@@ -172,8 +164,8 @@ class _SignInScreenState extends State<SignInScreen> {
                   ],
                 ),
                 SizedBox(height: 20.h),
-                // Sign In Button
 
+                // Sign In Button
                 Consumer<AuthProvider>(
                   builder: (context, authProvider, _) => Buttons(
                     text: authProvider.isLoading ? "Loading..." : 'Sign In',
@@ -192,49 +184,51 @@ class _SignInScreenState extends State<SignInScreen> {
                         );
                       } else {
                         context.push(AuthScreen.routeName);
-//                 if (authProvider.loginResponse?.isVerified == true) {
-//   context.push(ChooseSchool.routeName);
-// } else {
-//   context.push(
-//     VerificationScreen.routeName,
-//     extra: emailController?.text ?? "",
-//   );
-// }
+                        //                 if (authProvider.loginResponse?.isVerified == true) {
+                        //   context.push(ChooseSchool.routeName);
+                        // } else {
+                        //   context.push(
+                        //     VerificationScreen.routeName,
+                        //     extra: emailController?.text ?? "",
+                        //   );
+                        // }
                       }
                     },
                   ),
                 ),
 
                 SizedBox(height: 30.h),
-                Consumer<AuthProvider>(builder: (context, authProvider, _) {
-                  return Buttons(
-                    onTap: () async {
-                      await authProvider.googleSignIn();
-                      if (authProvider.isError) {
-                        Alert.displaySnackBar(
-                          context,
-                          message: authProvider.errorResponse?.message ?? "",
-                        );
-                      } else {
-                        context.push(AuthScreen.routeName);
-                      }
-                    },
-                    isLoading: false,
-                    borderRadius: BorderRadius.circular(100),
-                    boxColor: Colors.transparent,
-                    border: Border.all(color: whiteShades[1]),
-                    text: authProvider.isLoadingStateTwo
-                        ? "Loading..."
-                        : 'Continue with Google',
-                    textColor: ThemeProvider().isDarkMode
-                        ? Colors.white
-                        : Colors.black,
-                    fontSize: 14.sp,
-                    prefixIcon: SvgPicture.asset(
-                      'assets/icons/google_logo.svg',
-                    ),
-                  );
-                }),
+                Consumer<AuthProvider>(
+                  builder: (context, authProvider, _) {
+                    return Buttons(
+                      onTap: () async {
+                        // await authProvider.googleSignIn();
+                        // if (authProvider.isError) {
+                        //   Alert.displaySnackBar(
+                        //     context,
+                        //     message: authProvider.errorResponse?.message ?? "",
+                        //   );
+                        // } else {
+                        //   context.push(AuthScreen.routeName);
+                        // }
+                      },
+                      isLoading: false,
+                      borderRadius: BorderRadius.circular(100),
+                      boxColor: Colors.transparent,
+                      border: Border.all(color: whiteShades[1]),
+                      text: authProvider.isLoadingStateTwo
+                          ? "Loading..."
+                          : 'Continue with Google',
+                      textColor: ThemeProvider().isDarkMode
+                          ? Colors.white
+                          : Colors.black,
+                      fontSize: 14.sp,
+                      prefixIcon: SvgPicture.asset(
+                        'assets/icons/google_logo.svg',
+                      ),
+                    );
+                  },
+                ),
                 // SizedBox(height: 3.h),
                 // Buttons(
                 //   onTap: () {},
