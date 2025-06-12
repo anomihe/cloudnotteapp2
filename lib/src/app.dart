@@ -465,40 +465,40 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 //     // This could be causing the initialization crash
 //   ];
 // }
-List<LocalizationsDelegate<dynamic>> _getLocalizationDelegates() {
-  final delegates = <LocalizationsDelegate<dynamic>>[
-    GlobalMaterialLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-  ];
+// List<LocalizationsDelegate<dynamic>> _getLocalizationDelegates() {
+//   final delegates = <LocalizationsDelegate<dynamic>>[
+//     GlobalMaterialLocalizations.delegate,
+//     GlobalCupertinoLocalizations.delegate,
+//     GlobalWidgetsLocalizations.delegate,
+//   ];
 
-  try {
-    if (Platform.isAndroid) {
-      delegates.add(FlutterQuillLocalizations.delegate);
-      debugPrint('Added FlutterQuillLocalizations for Android');
-    }
-  } catch (e) {
-    debugPrint('Platform detection error: $e');
-  }
+//   try {
+//     if (Platform.isAndroid) {
+//       delegates.add(FlutterQuillLocalizations.delegate);
+//       debugPrint('Added FlutterQuillLocalizations for Android');
+//     }
+//   } catch (e) {
+//     debugPrint('Platform detection error: $e');
+//   }
 
-  return delegates;
-}
+//   return delegates;
+// }
 // Also simplify your _resolveLocale method:
-Locale _resolveLocale(Locale? locale, Iterable<Locale> supportedLocales) {
-  // Simplified version to avoid potential crashes during initialization
-  if (locale == null) {
-    return const Locale('en', 'US');
-  }
+// Locale _resolveLocale(Locale? locale, Iterable<Locale> supportedLocales) {
+//   // Simplified version to avoid potential crashes during initialization
+//   if (locale == null) {
+//     return const Locale('en', 'US');
+//   }
   
-  // Just return the first supported locale that matches language code
-  for (final supportedLocale in supportedLocales) {
-    if (supportedLocale.languageCode == locale.languageCode) {
-      return supportedLocale;
-    }
-  }
+//   // Just return the first supported locale that matches language code
+//   for (final supportedLocale in supportedLocales) {
+//     if (supportedLocale.languageCode == locale.languageCode) {
+//       return supportedLocale;
+//     }
+//   }
   
-  return const Locale('en', 'US');
-}
+//   return const Locale('en', 'US');
+// }
 
   @override
   Widget build(BuildContext context) {
@@ -512,12 +512,12 @@ Locale _resolveLocale(Locale? locale, Iterable<Locale> supportedLocales) {
           return MaterialApp.router(
             debugShowCheckedModeBanner: false,
             theme: themeProvider.themeMode,
-            localeResolutionCallback: _resolveLocale,
-            localizationsDelegates: _getLocalizationDelegates(),
-            supportedLocales: const [
-              Locale('en', 'US'),
-              // Locale('en'),
-            ],
+            // localeResolutionCallback: _resolveLocale,
+            // localizationsDelegates: _getLocalizationDelegates(),
+            // supportedLocales: const [
+            //   Locale('en', 'US'),
+            //   // Locale('en'),
+            // ],
             routeInformationParser: router.routeInformationParser,
             routerDelegate: router.routerDelegate,
             routeInformationProvider: router.routeInformationProvider,

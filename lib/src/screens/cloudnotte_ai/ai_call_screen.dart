@@ -4,7 +4,7 @@ import 'package:cloudnottapp2/src/data/providers/theme_provider.dart';
 import 'package:cloudnottapp2/src/screens/call_screens/add_to_call_screen.dart';
 import 'package:cloudnottapp2/src/screens/call_screens/one_to_one.dart';
 import 'package:cloudnottapp2/src/screens/call_screens/widgets/call_action_buttons.dart';
-// import 'package:cloudnottapp2/src/screens/cloudnottapp2_ai/ai_call_translation_settings_screen.dart';
+import 'package:cloudnottapp2/src/screens/cloudnotte_ai/ai_call_translation_settings_screen.dart';
 import 'package:cloudnottapp2/src/utils/alert_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -53,12 +53,11 @@ class _AiCallScreenState extends State<AiCallScreen> {
                       height: 35.r,
                       padding: EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100),
-                        color: ThemeProvider().isDarkMode
-                            ? Colors.white
-                            : Colors.black,
-                        border: Border.all(),
-                      ),
+                          borderRadius: BorderRadius.circular(100),
+                          color: ThemeProvider().isDarkMode
+                              ? Colors.white
+                              : Colors.black,
+                          border: Border.all()),
                       child: SvgPicture.asset(
                         'assets/icons/minimize_call.svg',
                         height: 16,
@@ -85,7 +84,7 @@ class _AiCallScreenState extends State<AiCallScreen> {
                           ),
                           SizedBox(width: 5),
                           if (widget.userChatModel.isVerified == true)
-                            SvgPicture.asset('assets/icons/verified_icon.svg'),
+                            SvgPicture.asset('assets/icons/verified_icon.svg')
                         ],
                       ),
                       Text(
@@ -99,27 +98,26 @@ class _AiCallScreenState extends State<AiCallScreen> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      // showModalBottomSheet(
-                      //   isScrollControlled: true,
-                      //   context: context,
-                      //   isDismissible: true,
-                      //   useSafeArea: true,
-                      //   builder: (context) {
-                      //     return const AiCallTranslationSettingsScreen();
-                      //   },
-                      // );
+                      showModalBottomSheet(
+                        isScrollControlled: true,
+                        context: context,
+                        isDismissible: true,
+                        useSafeArea: true,
+                        builder: (context) {
+                          return const AiCallTranslationSettingsScreen();
+                        },
+                      );
                     },
                     child: Container(
                       width: 35.r,
                       height: 35.r,
                       padding: EdgeInsets.all(10.r),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100),
-                        color: ThemeProvider().isDarkMode
-                            ? Colors.white
-                            : Colors.black,
-                        border: Border.all(),
-                      ),
+                          borderRadius: BorderRadius.circular(100),
+                          color: ThemeProvider().isDarkMode
+                              ? Colors.white
+                              : Colors.black,
+                          border: Border.all()),
                       child: SvgPicture.asset(
                         'assets/icons/settings_icon_2.svg',
                         colorFilter: ColorFilter.mode(
@@ -133,7 +131,9 @@ class _AiCallScreenState extends State<AiCallScreen> {
                   ),
                 ],
               ),
-              Image.asset('assets/app/logo_cloudnottapp2.png'),
+              Image.asset(
+                'assets/app/logo_cloudnottapp2.png',
+              ),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
                 width: screenSize.width / 2.1,
@@ -152,7 +152,9 @@ class _AiCallScreenState extends State<AiCallScreen> {
                       svgIcon1: Icons.mic_off_outlined,
                       boxColor: Colors.transparent,
                     ),
-                    SizedBox(width: 15.w),
+                    SizedBox(
+                      width: 15.w,
+                    ),
                     CallButton(
                       // end call button
                       onTap: () {

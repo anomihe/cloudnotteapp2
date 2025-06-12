@@ -8,7 +8,10 @@ import 'package:cloudnottapp2/src/screens/accounting/fee_payment_screen.dart';
 import 'package:cloudnottapp2/src/screens/accounting/transaction_details_screen.dart';
 import 'package:cloudnottapp2/src/screens/app_screens/support_screen.dart';
 import 'package:cloudnottapp2/src/screens/call_screens/one_to_one.dart';
-
+import 'package:cloudnottapp2/src/screens/cloudnotte_ai/ai_call_screen.dart';
+import 'package:cloudnottapp2/src/screens/cloudnotte_ai/ai_call_translation_settings_screen.dart';
+import 'package:cloudnottapp2/src/screens/cloudnotte_ai/ai_chatting_screen.dart';
+import 'package:cloudnottapp2/src/screens/cloudnotte_ai/ai_profile_screen.dart';
 import 'package:cloudnottapp2/src/screens/onboarding_screens/onboarding_screens.dart/auth_screen.dart';
 import 'package:cloudnottapp2/src/screens/student/chat_screens/chat_screen_pages/group_chat_profile_screen.dart';
 import 'package:cloudnottapp2/src/screens/student/chat_screens/chat_screen_pages/group_chatting_screen.dart';
@@ -81,7 +84,10 @@ import '../screens/onboarding_screens/widgets/model_class.dart';
 
 final router = GoRouter(
   routes: [
-    GoRoute(path: '/', builder: (context, state) => const SplashScreen()),
+    GoRoute(
+      path: '/',
+      builder: (context, state) => const SplashScreen(),
+    ),
     GoRoute(
       path: AuthScreen.routeName,
       builder: (context, state) => const AuthScreen(),
@@ -92,7 +98,9 @@ final router = GoRouter(
         // Check if extra exists and is of correct type
         if (state.extra == null || state.extra is! Map<String, dynamic>) {
           return const Scaffold(
-            body: Center(child: Text('Invalid navigation data')),
+            body: Center(
+              child: Text('Invalid navigation data'),
+            ),
           );
         }
 
@@ -105,7 +113,9 @@ final router = GoRouter(
         // Handle missing required data
         if (id == null || userProvider == null) {
           return const Scaffold(
-            body: Center(child: Text('Missing required navigation parameters')),
+            body: Center(
+              child: Text('Missing required navigation parameters'),
+            ),
           );
         }
 
@@ -118,7 +128,10 @@ final router = GoRouter(
         );
       },
     ),
-    GoRoute(path: Rolls.routeName, builder: (context, state) => const Rolls()),
+    GoRoute(
+      path: Rolls.routeName,
+      builder: (context, state) => const Rolls(),
+    ),
     GoRoute(
       path: SignInScreen.routeName,
       builder: (context, state) => const SignInScreen(),
@@ -131,7 +144,9 @@ final router = GoRouter(
       path: VerificationScreen.routeName,
       builder: (context, state) {
         final String email = state.extra as String;
-        return VerificationScreen(email: email);
+        return VerificationScreen(
+          email: email,
+        );
       },
     ),
     GoRoute(
@@ -145,7 +160,9 @@ final router = GoRouter(
       path: VerificationResetScreen.routeName,
       builder: (context, state) {
         final String email = state.extra as String;
-        return VerificationResetScreen(email: email);
+        return VerificationResetScreen(
+          email: email,
+        );
       },
     ),
     GoRoute(
@@ -177,7 +194,9 @@ final router = GoRouter(
       path: Profil.routeName,
       builder: (context, state) {
         final profil = state.extra as SchoolModel;
-        return Profil(schoolModel: profil);
+        return Profil(
+          schoolModel: profil,
+        );
       },
     ),
     GoRoute(
@@ -212,7 +231,9 @@ final router = GoRouter(
       path: CallSettingsScreen.routeName,
       builder: (context, state) {
         String? callId = state.extra as String?;
-        return CallSettingsScreen(callId: callId);
+        return CallSettingsScreen(
+          callId: callId,
+        );
       },
     ),
     GoRoute(
@@ -269,12 +290,13 @@ final router = GoRouter(
       builder: (context, state) => const RecordedClass(),
     ),
     GoRoute(
-      path: TeacherRecording.routeName,
-      builder: (context, state) {
-        final value = state.extra as ClassTimeTable?;
-        return TeacherRecording(classDetails: value);
-      },
-    ),
+        path: TeacherRecording.routeName,
+        builder: (context, state) {
+          final value = state.extra as ClassTimeTable?;
+          return TeacherRecording(
+            classDetails: value,
+          );
+        }),
 
     GoRoute(
       path: ClassSchedules.routeName,
@@ -306,14 +328,15 @@ final router = GoRouter(
 
     //homework sections
     GoRoute(
-      path: DemoStartScreen.routeName,
-      builder: (context, state) => const DemoStartScreen(),
-    ),
+        path: DemoStartScreen.routeName,
+        builder: (context, state) => const DemoStartScreen()),
     GoRoute(
       path: HomeworkEntryTabScreen.routeName,
       builder: (context, state) {
         String spaceId = state.error as String;
-        return HomeworkEntryTabScreen(spaceId: spaceId);
+        return HomeworkEntryTabScreen(
+          spaceId: spaceId,
+        );
       },
     ),
     GoRoute(
@@ -333,36 +356,32 @@ final router = GoRouter(
 
         return HomeworkReadyScreen(
           //  homeworkModel: homeworkModel,
-          spaceId: spaceId ?? '',
-          id: id ?? '',
-          examGroupId: examGroupId ?? '',
-          examId: examId ?? '',
-          pin: pin ?? '',
+          spaceId: spaceId ?? '', id: id ?? '', examGroupId: examGroupId ?? '',
+          examId: examId ?? '', pin: pin ?? '',
         );
       },
     ),
     GoRoute(
-      path: HomeworkQuestionScreen.routeName,
-      builder: (context, state) {
-        // final homeworkModel = state.extra as HomeworkModel;
-        final homeworkModel = state.extra as Map<String, dynamic>;
-        final id = homeworkModel['id'] as String?;
-        final spaceId = homeworkModel['spaceId'] as String?;
-        final examGroupId = homeworkModel['examGroupId'] as String?;
-        final examId = homeworkModel['examId'] as String?;
-        final pin = homeworkModel['pin'] as String?;
-        final subject = homeworkModel['subject'] as String?;
-        return HomeworkQuestionScreen(
-          // homeworkModel: homeworkModel,
-          id: id ?? '',
-          spaceId: spaceId ?? '',
-          examGroupId: examGroupId ?? '',
-          examId: examId ?? '',
-          pin: pin ?? '',
-          subject: subject ?? '',
-        );
-      },
-    ),
+        path: HomeworkQuestionScreen.routeName,
+        builder: (context, state) {
+          // final homeworkModel = state.extra as HomeworkModel;
+          final homeworkModel = state.extra as Map<String, dynamic>;
+          final id = homeworkModel['id'] as String?;
+          final spaceId = homeworkModel['spaceId'] as String?;
+          final examGroupId = homeworkModel['examGroupId'] as String?;
+          final examId = homeworkModel['examId'] as String?;
+          final pin = homeworkModel['pin'] as String?;
+          final subject = homeworkModel['subject'] as String?;
+          return HomeworkQuestionScreen(
+            // homeworkModel: homeworkModel,
+            id: id ?? '',
+            spaceId: spaceId ?? '',
+            examGroupId: examGroupId ?? '',
+            examId: examId ?? '',
+            pin: pin ?? '',
+            subject: subject ?? '',
+          );
+        }),
     // :TODO
     // GoRoute(
     //   path: HomeworkSubmissionScreen.routeName,
@@ -407,33 +426,30 @@ final router = GoRouter(
     //       );
     //     }),
     GoRoute(
-      path: HomeworkStatsScreen.routeName,
-      builder: (context, state) {
-        final data = state.extra as Map<String, dynamic>;
+        path: HomeworkStatsScreen.routeName,
+        builder: (context, state) {
+          final data = state.extra as Map<String, dynamic>;
 
-        return HomeworkStatsScreen(
-          homeworkModel: data['homeworkModel'],
-          selectedAnswers: data['selectedAnswers'],
-          chosenAnswer: data['chosenAnswer'],
-          uploadFiles: data['uploadFiles'],
-        );
-      },
-    ),
+          return HomeworkStatsScreen(
+            homeworkModel: data['homeworkModel'],
+            selectedAnswers: data['selectedAnswers'],
+            chosenAnswer: data['chosenAnswer'],
+            uploadFiles: data['uploadFiles'],
+          );
+        }),
 
     GoRoute(
-      path: ExamSummaryScreen.routeName,
-      builder: (context, state) {
-        final data = state.extra as Map<String, dynamic>;
+        path: ExamSummaryScreen.routeName,
+        builder: (context, state) {
+          final data = state.extra as Map<String, dynamic>;
 
-        return ExamSummaryScreen(
-          spaceId: data['spaceId'],
-          studentId: data['studentId'],
-          examGroupId: data['examGroupId'],
-          examId: data['examId'],
-          id: data['id'],
-        );
-      },
-    ),
+          return ExamSummaryScreen(
+              spaceId: data['spaceId'],
+              studentId: data['studentId'],
+              examGroupId: data['examGroupId'],
+              examId: data['examId'],
+              id: data['id']);
+        }),
     // GoRoute(
     //     path: TeacherEntryScreen.routeName,
     //     builder: (context, state) {
@@ -443,43 +459,41 @@ final router = GoRouter(
     //       );
     //     }),
     GoRoute(
-      path: HomeworkGroupScreen.routeName,
-      builder: (context, state) {
-        //final homeworkModel = state.extra as HomeworkModel;
-        final data = state.extra as Map<String, dynamic>;
-        final homeworkModel = data['homeworkModel'] as String;
-        final classGroupId = data['classGroupId'] as String;
-        final examGroupId = data['examGroupId'] as String;
-        final spaceId = data['spaceId'] as String;
-        final examId = data['examId'] as List<String>;
-        final classId = data['classId'] as String;
-        return HomeworkGroupScreen(
-          homeworkModel: homeworkModel,
-          classGroupId: classGroupId,
-          examIds: examId,
-          examGroupId: examGroupId,
-          spaceId: spaceId,
-          classId: classId,
-        );
-      },
-    ),
+        path: HomeworkGroupScreen.routeName,
+        builder: (context, state) {
+          //final homeworkModel = state.extra as HomeworkModel;
+          final data = state.extra as Map<String, dynamic>;
+          final homeworkModel = data['homeworkModel'] as String;
+          final classGroupId = data['classGroupId'] as String;
+          final examGroupId = data['examGroupId'] as String;
+          final spaceId = data['spaceId'] as String;
+          final examId = data['examId'] as List<String>;
+          final classId = data['classId'] as String;
+          return HomeworkGroupScreen(
+            homeworkModel: homeworkModel,
+            classGroupId: classGroupId,
+            examIds: examId,
+            examGroupId: examGroupId,
+            spaceId: spaceId,
+            classId: classId,
+          );
+        }),
     GoRoute(
-      path: SubmissionScreen.routeName,
-      builder: (context, state) {
-        final data = state.extra as Map<String, dynamic>;
-        // final studentModel = data['studentModel'] as StudentModel;
-        // final classGroupId = data['classGroupId'] as String;
-        final examGroupId = data['examGroupId'] as String;
-        final spaceId = data['spaceId'] as String;
-        return SubmissionScreen(
-          // studentModel: studentModel,
-          spaceId: spaceId,
-          examGroupId: examGroupId,
-          examId: data['examId'] as List<String>,
-          classId: data['classId'] as String,
-        );
-      },
-    ),
+        path: SubmissionScreen.routeName,
+        builder: (context, state) {
+          final data = state.extra as Map<String, dynamic>;
+          // final studentModel = data['studentModel'] as StudentModel;
+          // final classGroupId = data['classGroupId'] as String;
+          final examGroupId = data['examGroupId'] as String;
+          final spaceId = data['spaceId'] as String;
+          return SubmissionScreen(
+            // studentModel: studentModel,
+            spaceId: spaceId,
+            examGroupId: examGroupId,
+            examId: data['examId'] as List<String>,
+            classId: data['classId'] as String,
+          );
+        }),
     GoRoute(
       path: TeacherSubmissionView.routeName,
       builder: (context, state) {
@@ -507,26 +521,22 @@ final router = GoRouter(
       },
     ),
     GoRoute(
-      path: TeacherStatsScreen.routeName,
-      builder: (context, state) {
-        final data = state.extra as Map<String, dynamic> ?? {};
-        final examId = data['examId'] ?? '';
-        final examGroupId = data['examGroupId'] ?? '';
-        final spaceId = data['spaceId'] ?? '';
-        return TeacherStatsScreen(
-          examId: examId,
-          examGroupId: examGroupId,
-          spaceId: spaceId,
-        );
-      },
-    ),
+        path: TeacherStatsScreen.routeName,
+        builder: (context, state) {
+          final data = state.extra as Map<String, dynamic> ?? {};
+          final examId = data['examId'] ?? '';
+          final examGroupId = data['examGroupId'] ?? '';  
+          final spaceId = data['spaceId'] ?? '';
+          return  TeacherStatsScreen(examId: examId, examGroupId: examGroupId, spaceId: spaceId,);
+        }),
     GoRoute(
-      path: TeacherRecorded.routeName,
-      builder: (context, state) {
-        final value = state.extra as ClassTimeTable?;
-        return TeacherRecorded(classDetails: value);
-      },
-    ),
+        path: TeacherRecorded.routeName,
+        builder: (context, state) {
+          final value = state.extra as ClassTimeTable?;
+          return TeacherRecorded(
+            classDetails: value,
+          );
+        }),
     GoRoute(
       path: LearnWithAi.routeName,
       builder: (context, state) => const LearnWithAi(),
@@ -560,17 +570,16 @@ final router = GoRouter(
         // final lessonNoteModel = state.extra as LessonNoteModel;
         final data = state.extra as Map<String, dynamic>;
         return LessonClassScreen(
-          lessonClassModel: data['lessonNoteModel'],
-          spaceId: data['spaceId'],
-          // lessonClassModel: LessonClassModel(
-          //   videoUrl: 'videoUrl',
-          //   lessonTitle: 'lessonTitle',
-          //   teacherImage: 'teacherImage',
-          //   teacherName: 'teacherName',
-          //   messageCount: 0,
-          //   lessonText: 'lessonText',
-          // ),
-        );
+            lessonClassModel: data['lessonNoteModel'], spaceId: data['spaceId']
+            // lessonClassModel: LessonClassModel(
+            //   videoUrl: 'videoUrl',
+            //   lessonTitle: 'lessonTitle',
+            //   teacherImage: 'teacherImage',
+            //   teacherName: 'teacherName',
+            //   messageCount: 0,
+            //   lessonText: 'lessonText',
+            // ),
+            );
       },
     ),
     GoRoute(
@@ -617,7 +626,9 @@ final router = GoRouter(
       path: ProfileScreen.routeName,
       builder: (context, state) {
         final value = state.extra as UserProvider;
-        return ProfileScreen(value: value);
+        return ProfileScreen(
+          value: value,
+        );
       },
     ),
     GoRoute(
@@ -643,6 +654,33 @@ final router = GoRouter(
     GoRoute(
       path: NotificationScreen.routeName,
       builder: (context, state) => NotificationScreen(),
+    ),
+    GoRoute(
+      path: AiChattingScreen.routeName,
+      builder: (context, state) {
+        final aiChatDisplay = state.extra as UserChatModel;
+        return AiChattingScreen(
+          aiChatModel: aiChatDisplay,
+        );
+      },
+    ),
+    GoRoute(
+      path: AiCallScreen.routeName,
+      builder: (context, state) {
+        return AiCallScreen(userChatModel: aiChatDisplay);
+      },
+    ),
+    GoRoute(
+      path: AiCallTranslationSettingsScreen.routeName,
+      builder: (context, state) {
+        return AiCallTranslationSettingsScreen();
+      },
+    ),
+    GoRoute(
+      path: AiProfileScreen.routeName,
+      builder: (context, state) {
+        return AiProfileScreen();
+      },
     ),
     GoRoute(
       path: GroupChatProfileScreen.routeName,
@@ -738,13 +776,11 @@ final router = GoRouter(
     GoRoute(
       path: CourseLessonScreen.routeName,
       builder: (context, state) {
-        final extra =
-            state.extra
-                as ({
-                  CourseItemsModel course,
-                  LessonItem lesson,
-                  int currentLessonIndex,
-                });
+        final extra = state.extra as ({
+          CourseItemsModel course,
+          LessonItem lesson,
+          int currentLessonIndex
+        });
         return CourseLessonScreen(
           course: extra.course,
           lesson: extra.lesson,

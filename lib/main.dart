@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
-import 'package:cloudnottapp2/firebase_options.dart';
 import 'package:cloudnottapp2/src/data/repositories/result_repositories.dart';
 import 'package:cloudnottapp2/src/data/providers/accounting_providers.dart';
 import 'package:cloudnottapp2/src/data/providers/free_ai_provider.dart';
@@ -40,144 +39,12 @@ import 'package:cloudnottapp2/src/app.dart';
 import 'package:cloudnottapp2/src/data/providers/live_kit_provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
-// @pragma('vm:entry-point')
-// Future<bool> startForegroundService() async {
-//   try {
-//     const androidConfig = FlutterBackgroundAndroidConfig(
-//       notificationTitle: 'Title of the notification',
-//       notificationText: 'Text of the notification',
-//     );
-//     await FlutterBackground.initialize(androidConfig: androidConfig);
-//     return true;
-//   } catch (e) {
-//     log("Error initializing background: $e");
-//     return false;
-//   }
-// }
 
-// @pragma('vm:entry-point')
-// Future<bool> startForegroundService() async {
-//   try {
-//     if (Platform.isAndroid) {
-//       const androidConfig = FlutterBackgroundAndroidConfig(
-//         notificationTitle: 'cloudnottapp2 Background Service',
-//         notificationText: 'Keeping your session active',
-//       );
-//       await FlutterBackground.initialize(androidConfig: androidConfig);
-//     }
-//     return true;
-//   } catch (e) {
-//     log("Error initializing background: $e");
-//     return false;
-//   }}
-// void main() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-//   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-//   await Permission.camera.request();
-//   await Permission.microphone.request();
-//   //hive
-//   final dir = await getApplicationSupportDirectory();
-//   Hive.init(dir.path);
-//   await Hive.openBox("localStorage");
-
-//   //background service
-//   await startForegroundService();
-
-//   await Firebase.initializeApp();
-
-//   await SentryFlutter.init(
-//     (options) {
-//       options.dsn =
-//           'https://ffb93211af0cc811406770ba05aec487@o4509158108430336.ingest.us.sentry.io/4509158113148928';
-//       options.sendDefaultPii = true;
-//     },
-//     appRunner: () => runApp(
-//       MultiProvider(
-//         providers: [
-//           ChangeNotifierProvider(create: (_) => ThemeProvider()),
-//           ChangeNotifierProvider<ChatService>(create: (_) => ChatService()),
-//           ChangeNotifierProvider(create: (_) => FreeAiProvider()),
-//           ChangeNotifierProvider(create: (context) => AiContentProvider()),
-//           ChangeNotifierProvider<FileUploadNotifier>(
-//               create: (_) => FileUploadNotifier()),
-
-//           Provider<AccountingRepositories>(
-//               create: (_) => AccountingRepositoriesImpl()),
-//           ChangeNotifierProvider(
-//             create: (context) => AccountingProvider(
-//               accountProvider: context.read<AccountingRepositories>(),
-//             ),
-//           ),
-
-//           Provider<ResultRepositories>(create: (_) => ResultRepositoryImpl()),
-//           ChangeNotifierProvider(
-//             create: (context) => ResultProvider(
-//               resultProvider: context.read<ResultRepositories>(),
-//             ),
-//           ),
-
-//           Provider<AuthRepository>(create: (_) => AuthRepositoryImpl()),
-//           ChangeNotifierProvider(
-//             create: (context) => AuthProvider(
-//               authRepository: context.read<AuthRepository>(),
-//             ),
-//           ),
-//           Provider<UserRepository>(create: (_) => UserRepositoryImpl()),
-//           ChangeNotifierProvider(
-//             create: (context) => UserProvider(
-//               userRepository: context.read<UserRepository>(),
-//             ),
-//           ),
-//           //RECORDING
-//           Provider<RecordingRepository>(
-//               create: (_) => RecordingRepositoryImpl()),
-//           ChangeNotifierProvider<RecordingProvider>(
-//             create: (context) => RecordingProvider(
-//               recordingRepository: context.read<RecordingRepository>(),
-//             ),
-//           ),
-//           //CHAT REPO
-//           Provider<ChatRepository>(create: (_) => ChatRepositoryImpl()),
-//           ChangeNotifierProvider(
-//             create: (context) => ChatProvider(
-//               chatRepository: context.read<ChatRepository>(),
-//             ),
-//           ),
-//           ChangeNotifierProvider(
-//             create: (_) => LiveKitController(),
-//           ),
-
-//           // Lesson Notes
-//           Provider<LessonNotesRepository>(
-//             create: (_) => LessonNotesRepositoryImpl(),
-//           ),
-//           ChangeNotifierProvider<LessonNotesProvider>(
-//             create: (context) => LessonNotesProvider(
-//               lessonNoteRepository: context.read<LessonNotesRepository>(),
-//             ),
-//           ),
-//           //exam
-//           Provider<ExamOrHomeWorkRepo>(
-//             create: (_) => ExamOrHomeWorkRepoImpl(),
-//           ),
-//           ChangeNotifierProvider<ExamHomeProvider>(
-//             create: (context) => ExamHomeProvider(
-//               examOrHomeWorkRepo: context.read<ExamOrHomeWorkRepo>(),
-//             ),
-//           ),
-//         ],
-//         child: SentryWidget(
-//           child: const MyApp(),
-//         ),
-//       ),
-//     ),
-//   );
-// }
 
 @pragma('vm:entry-point')
 Future<bool> startForegroundService() async {
   try {
-    if (Platform.isAndroid) {
+    if (Platform.isAndroid) { 
       const androidConfig = FlutterBackgroundAndroidConfig(
         notificationTitle: 'cloudnottapp2 Background Service',
         notificationText: 'Keeping your session active',
@@ -202,10 +69,10 @@ Future<void> _requestPermissions() async {
     // Request permissions with proper error handling
     final cameraStatus = await Permission.camera.request();
     final microphoneStatus = await Permission.microphone.request();
-
+    
     log("Camera permission: $cameraStatus");
     log("Microphone permission: $microphoneStatus");
-
+    
     // Handle denied permissions gracefully
     if (cameraStatus.isDenied || microphoneStatus.isDenied) {
       log("Some permissions were denied, but continuing app initialization");
@@ -247,9 +114,7 @@ Future<void> _initializeBackgroundService() async {
 
 Future<void> _initializeFirebase() async {
   try {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
+    await Firebase.initializeApp();
     log("Firebase initialized successfully");
   } catch (e, stackTrace) {
     log("Firebase initialization failed: $e");
@@ -261,21 +126,19 @@ Future<void> _initializeFirebase() async {
 void main() async {
   try {
     WidgetsFlutterBinding.ensureInitialized();
-
+    
     // Set preferred orientations with error handling
     try {
-      await SystemChrome.setPreferredOrientations([
-        DeviceOrientation.portraitUp,
-      ]);
+      await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     } catch (e) {
       log("Failed to set orientation: $e");
     }
-
+    
     // Initialize components with individual error handling
     await _requestPermissions();
     await _initializeHive();
     await _initializeBackgroundService();
-    // await _initializeFirebase();
+    await _initializeFirebase();
 
     // Initialize Sentry with error handling
     await SentryFlutter.init(
@@ -283,14 +146,10 @@ void main() async {
         // Consider using environment variables for sensitive data
         options.dsn = const String.fromEnvironment(
           'SENTRY_DSN',
-          defaultValue:
-              'https://ffb93211af0cc811406770ba05aec487@o4509158108430336.ingest.us.sentry.io/4509158113148928',
+          defaultValue: 'https://ffb93211af0cc811406770ba05aec487@o4509158108430336.ingest.us.sentry.io/4509158113148928',
         );
         options.sendDefaultPii = true;
-        options.environment = const String.fromEnvironment(
-          'SENTRY_ENVIRONMENT',
-          defaultValue: 'production',
-        );
+        options.environment = const String.fromEnvironment('SENTRY_ENVIRONMENT', defaultValue: 'production');
       },
       appRunner: () => runApp(
         MultiProvider(
@@ -300,12 +159,10 @@ void main() async {
             ChangeNotifierProvider(create: (_) => FreeAiProvider()),
             ChangeNotifierProvider(create: (context) => AiContentProvider()),
             ChangeNotifierProvider<FileUploadNotifier>(
-              create: (_) => FileUploadNotifier(),
-            ),
+                create: (_) => FileUploadNotifier()),
 
             Provider<AccountingRepositories>(
-              create: (_) => AccountingRepositoriesImpl(),
-            ),
+                create: (_) => AccountingRepositoriesImpl()),
             ChangeNotifierProvider(
               create: (context) => AccountingProvider(
                 accountProvider: context.read<AccountingRepositories>(),
@@ -321,18 +178,19 @@ void main() async {
 
             Provider<AuthRepository>(create: (_) => AuthRepositoryImpl()),
             ChangeNotifierProvider(
-              create: (context) =>
-                  AuthProvider(authRepository: context.read<AuthRepository>()),
+              create: (context) => AuthProvider(
+                authRepository: context.read<AuthRepository>(),
+              ),
             ),
             Provider<UserRepository>(create: (_) => UserRepositoryImpl()),
             ChangeNotifierProvider(
-              create: (context) =>
-                  UserProvider(userRepository: context.read<UserRepository>()),
+              create: (context) => UserProvider(
+                userRepository: context.read<UserRepository>(),
+              ),
             ),
             //RECORDING
             Provider<RecordingRepository>(
-              create: (_) => RecordingRepositoryImpl(),
-            ),
+                create: (_) => RecordingRepositoryImpl()),
             ChangeNotifierProvider<RecordingProvider>(
               create: (context) => RecordingProvider(
                 recordingRepository: context.read<RecordingRepository>(),
@@ -341,10 +199,13 @@ void main() async {
             //CHAT REPO
             Provider<ChatRepository>(create: (_) => ChatRepositoryImpl()),
             ChangeNotifierProvider(
-              create: (context) =>
-                  ChatProvider(chatRepository: context.read<ChatRepository>()),
+              create: (context) => ChatProvider(
+                chatRepository: context.read<ChatRepository>(),
+              ),
             ),
-            ChangeNotifierProvider(create: (_) => LiveKitController()),
+            ChangeNotifierProvider(
+              create: (_) => LiveKitController(),
+            ),
 
             // Lesson Notes
             Provider<LessonNotesRepository>(
@@ -365,7 +226,9 @@ void main() async {
               ),
             ),
           ],
-          child: SentryWidget(child: const MyApp()),
+          child: SentryWidget(
+            child: const MyApp(),
+          ),
         ),
       ),
     );
@@ -373,7 +236,7 @@ void main() async {
     // If Sentry initialization fails, still try to run the app
     log("Critical initialization error: $e");
     debugPrint('Critical initialization error: $e\n$stackTrace');
-
+    
     // Try to run the app without Sentry if needed
     try {
       runApp(
@@ -389,4 +252,4 @@ void main() async {
       log("Fallback app initialization also failed: $fallbackError");
     }
   }
-}
+} 

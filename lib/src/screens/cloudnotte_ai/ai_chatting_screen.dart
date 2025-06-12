@@ -4,7 +4,9 @@ import 'package:cloudnottapp2/src/config/config.dart';
 import 'package:cloudnottapp2/src/data/models/user_chat_model.dart';
 import 'package:cloudnottapp2/src/data/providers/theme_provider.dart';
 import 'package:cloudnottapp2/src/screens/call_screens/widgets/call_action_buttons.dart';
-
+import 'package:cloudnottapp2/src/screens/cloudnotte_ai/ai_call_screen.dart';
+import 'package:cloudnottapp2/src/screens/cloudnotte_ai/ai_call_translation_settings_screen.dart';
+import 'package:cloudnottapp2/src/screens/cloudnotte_ai/ai_profile_screen.dart';
 import 'package:cloudnottapp2/src/screens/onboarding_screens/widgets/text_field_widget.dart';
 
 import 'package:cloudnottapp2/src/screens/student/chat_screens/chat_screen_widgets/user_chatting_widget.dart';
@@ -32,7 +34,9 @@ class _AiChattingScreenState extends State<AiChattingScreen> {
         leading: customAppBarLeadingIcon(context),
         title: GestureDetector(
           onTap: () {
-            // context.push(AiProfileScreen.routeName);
+            context.push(
+              AiProfileScreen.routeName,
+            );
           },
           child: Row(
             children: [
@@ -40,31 +44,36 @@ class _AiChattingScreenState extends State<AiChattingScreen> {
                 width: 25,
                 height: 25,
                 decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(widget.aiChatModel.image),
-                    fit: BoxFit.cover,
-                  ),
-                  borderRadius: BorderRadius.circular(100),
-                ),
+                    image: DecorationImage(
+                      image: AssetImage(widget.aiChatModel.image),
+                      fit: BoxFit.cover,
+                    ),
+                    borderRadius: BorderRadius.circular(100)),
               ),
               SizedBox(width: 5.w),
               Text(
                 widget.aiChatModel.title,
-                style: setTextTheme(fontSize: 15.sp),
+                style: setTextTheme(
+                  fontSize: 15.sp,
+                ),
               ),
               SizedBox(width: 5),
               if (widget.aiChatModel.isVerified == true)
-                SvgPicture.asset('assets/icons/verified_icon.svg'),
+                SvgPicture.asset(
+                  'assets/icons/verified_icon.svg',
+                )
             ],
           ),
         ),
         actions: [
           Material(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15.w),
+              padding: EdgeInsets.symmetric(
+                horizontal: 15.w,
+              ),
               child: GestureDetector(
                 onTap: () {
-                  // context.push(AiCallScreen.routeName);
+                  context.push(AiCallScreen.routeName);
                 },
                 child: SvgPicture.asset(
                   'assets/icons/call_icon_border.svg',
@@ -119,7 +128,9 @@ class _AiChattingScreenState extends State<AiChattingScreen> {
                       border: InputBorder.none,
                     ),
                   ),
-                  SizedBox(width: 7.w),
+                  SizedBox(
+                    width: 7.w,
+                  ),
                   GestureDetector(
                     onTap: () {},
                     child: SvgPicture.asset(
