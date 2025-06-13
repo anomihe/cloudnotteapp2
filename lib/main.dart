@@ -41,48 +41,7 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 
 
 
-@pragma('vm:entry-point')
-Future<bool> startForegroundService() async {
-  try {
-    if (Platform.isAndroid) { 
-      const androidConfig = FlutterBackgroundAndroidConfig(
-        notificationTitle: 'cloudnottapp2 Background Service',
-        notificationText: 'Keeping your session active',
-      );
-      await FlutterBackground.initialize(androidConfig: androidConfig);
-      return true;
-    } else if (Platform.isIOS) {
-      // iOS doesn't need flutter_background, handle iOS-specific background tasks here if needed
-      log("iOS background service handling - no action needed");
-      return true;
-    }
-    return true;
-  } catch (e, stackTrace) {
-    log("Error initializing background service: $e");
-    Sentry.captureException(e, stackTrace: stackTrace);
-    return false;
-  }
-}
 
-Future<void> _requestPermissions() async {
-  try {
-    // Request permissions with proper error handling
-    final cameraStatus = await Permission.camera.request();
-    final microphoneStatus = await Permission.microphone.request();
-    
-    log("Camera permission: $cameraStatus");
-    log("Microphone permission: $microphoneStatus");
-    
-    // Handle denied permissions gracefully
-    if (cameraStatus.isDenied || microphoneStatus.isDenied) {
-      log("Some permissions were denied, but continuing app initialization");
-    }
-  } catch (e, stackTrace) {
-    log("Permission request failed: $e");
-    Sentry.captureException(e, stackTrace: stackTrace);
-    // Don't crash the app, just log the error
-  }
-}
 
 Future<void> _initializeHive() async {
   try {
@@ -97,31 +56,7 @@ Future<void> _initializeHive() async {
   }
 }
 
-Future<void> _initializeBackgroundService() async {
-  try {
-    final success = await startForegroundService();
-    if (success) {
-      log("Background service initialized successfully");
-    } else {
-      log("Background service initialization failed, but continuing");
-    }
-  } catch (e, stackTrace) {
-    log("Background service initialization error: $e");
-    Sentry.captureException(e, stackTrace: stackTrace);
-    // Don't crash the app, just log the error
-  }
-}
 
-Future<void> _initializeFirebase() async {
-  try {
-    await Firebase.initializeApp();
-    log("Firebase initialized successfully");
-  } catch (e, stackTrace) {
-    log("Firebase initialization failed: $e");
-    Sentry.captureException(e, stackTrace: stackTrace);
-    // This might be more critical, but still try to continue
-  }
-}
 
 void main() async {
   try {
@@ -135,10 +70,9 @@ void main() async {
     }
     
     // Initialize components with individual error handling
-    await _requestPermissions();
+
     await _initializeHive();
-    await _initializeBackgroundService();
-    await _initializeFirebase();
+
 
     // Initialize Sentry with error handling
     await SentryFlutter.init(
@@ -226,9 +160,7 @@ void main() async {
               ),
             ),
           ],
-          child: SentryWidget(
-            child: const MyApp(),
-          ),
+          child: const MyApp(),
         ),
       ),
     );
