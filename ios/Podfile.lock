@@ -188,7 +188,20 @@ SPEC CHECKSUMS:
   DKPhotoGallery: b3834fecb755ee09a593d7c9e389d8b5d6deed60
   easy_pdf_viewer: 042afdb12b757c7471dfdb402b19ca7a1370f8d6
   file_picker: a0560bc09d61de87f12d246fc47d2119e6ef37be
+<<<<<<< HEAD
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+=======
+  Firebase: 3435bc66b4d494c2f22c79fd3aae4c1db6662327
+  firebase_auth: ebc1f561cc3077efebad5005974c9ed58008973b
+  firebase_core: 700bac7ed92bb754fd70fbf01d72b36ecdd6d450
+  FirebaseAppCheckInterop: a92ba81d0ee3c4cddb1a2e52c668ea51dc63c3ae
+  FirebaseAuth: 175cb5503dfdb52191b8ff81cdd52c1d9dee9ac9
+  FirebaseAuthInterop: e25b58ecb90f3285085fa2118861a3c9dfdc62ad
+  FirebaseCore: c692c7f1c75305ab6aff2b367f25e11d73aa8bd0
+  FirebaseCoreExtension: c048485c347616dba6165358dbef765c5197597b
+  FirebaseCoreInternal: 29d7b3af4aaf0b8f3ed20b568c13df399b06f68c
+  Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
+>>>>>>> 1e56db2 (pr)
   flutter_inappwebview_ios: b89ba3482b96fb25e00c967aae065701b66e9b99
   flutter_keyboard_visibility_temp_fork: 95b2d534bacf6ac62e7fcbe5c2a9e2c2a17ce06f
   flutter_pdfview: 32bf27bda6fd85b9dd2c09628a824df5081246cf
